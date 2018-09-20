@@ -1,0 +1,198 @@
+show the density os part of speech and ....
+
+ranked histogram 20 most common words
+
+Simple model first:
+
+part of speech classifeier
+
+**confusion matrix -- shows flaws // whats getting confused
+
+log plotting may be good to remember
+
+baseline
+
+
+then add features -- only feed features into data set -- cleaner features import
+
+better featers --> better results
+
+depends on exploration you do 
+
+pot based on certain known things (per, geo, etc)
+
+features vs rules:
+rules are too specific...
+
+bringing in neighboring ideas
+
+prefer confusion matrix over scoring but scoring is good...
+
+typical scoring varieties // metrics -- punt
+
+***xgboost -- try as baseline
+lite gbm
+
+don't have to tune too much
+
+learning curve -- error vs data size
+ - training and validation errors
+
+plateu means not trainign set limited
+--- if you had 20x the data it wont be that much better -- not data limited
+
+--> then imporve the model 
+gap between trainign an validation error means you are overfitting... can make trees shallower, more dropouts, simple algorithm... model tuning
+avoid overfitting by doing somethign more intelligent
+
+if the learning curver gets really close... should overall error be lower?
+---> how close in terms of buisness need, how close do oyu need?
+---> say they match, want to know if model limited... give model more flexibility **
+if underfitting, error will go down
+too flexible vs too rigid of a model
+
+feature importance ---> can tell you related features based on most important features
+
+
+LOOKUP: tfids from nltk -- document classification
+
+
+neural net --  how to update weights
+each step of calculations
+
+Two Assignments:
+READING - DOCUMENT CLASSIFICATION
+
+GOAL: match level of error in data
+
+
+
+Combining
+
+
+
+
+MEETING NLP ::
+---------------------
+
+NLP - anything text based
+most of internet so pretty important
+if you can leverage it...
+google uses a bunch of NLP
+
+text classification
+	-ham/spam project
+	-classification based on text
+	-censor for pornography company
+		-determine type of content is on the webpage
+
+
+information extraction
+	-try to extract key information from text
+	-backbone of names (people, drugs, companys), dates,
+		-want to extract names from files -- saves lots of time to not have to do by hand
+	-twitter analysis correlation with company worth
+	-security stuff -- classifying emails
+		-if talking about something illegal -> raise a security warning
+	-finance 
+	-drug comanies trying to convert notes to database
+
+-->typically done in 3 ways:
+
+1) regex good at a specific task, high precision, bad at recall
+
+2) feature engineering -- is the owkr capitalized.. does it contain letter 'X' does word come after a verb?
+		-shove into xgboost
+		-features are important
+		-domain specific -- also why people who now what htey are doing are important
+			-might only work for a specific task
+
+3) black box -- deep nets/neutral nets 
+			 -- sequence models
+			 	-maximize some probability over the sentance -- 7th word is most likely to be w/e
+			 	-feed in POS tag and it will use sequences of NNVN to build label, give probabilities of these sequences...
+			 -- not going to get too much extra for tunbing around it
+
+
+can tune a feature for your algorithm to improve it
+
+relationship extraction --> i.e. relates name an comapny name
+						--> try to see what words come together
+						--> features what words between, pos between, etc
+						--> if you had owners of companies
+							--> could learn that the owner and comany name are a certain spacing.. yhen you can extract relationships
+
+Document summarization:
+	all doable automatically
+	-abstracted
+		-idea of what the document is about, then create way to interpret that
+
+	-extractive
+		-extract sentances and patch together
+		-information extraction on every word
+		-person and comany name, dat and dollar amount
+		-get sentances with most important information
+		-typically information extraction -- count how many times a key term pops up
+										  -- more counts more importance
+										--> then run tfidf per sentance... 
+										--> sentance only has 2 of the, sya 1000 tfidf words
+											--> run a topic model -- clustering and give a more smoothed metric
+											--> then more likely that those reduced set (not reduced number of words) would be found in a sentance
+											--> project the 1000 features into 10 classificcations
+											--> tca clustering  -- make car and vehicle correspond to same feature
+											trying to create topics -- car and vehicel are smae topic
+											--> percent topic the word is
+													--> find the most important sentance, 
+													--> drop similar sentances
+														--> order by when it comes up
+
+		basically unsupervised -- which is good!
+		It will know what to do with different documents!
+		it finds what is important with tfidf and gets rid of similarities using unsupervised
+			topic model might be hard
+			correlated not correlated
+			number of features
+
+
+Translations:
+	--> deep networks to encode the spoken language into topics space
+		--> decodes to the other language topic space
+
+	english to english
+		--> word king
+		--> in the middle,,, when you have topic space... what makes up a king 
+		--> parse word man -- similar in some feature
+		--> parse woman get somethign else
+		--> subtract man from king, add woman --> then get out queen
+			--> king means royal male figure
+			--> subtract amn and add woman should change the features enough to get queen
+
+
+Questions:
+	porbably one of the hardest..
+	question answering
+	alexa
+
+	--> listens to the words, converts to text -- thats one thing
+		--> parses the question "what"
+			--> runs the query "what"
+				--> ask google, take three links, summarize them, return that stuff
+
+	"when" questions "hilary clinton" is who "born" is what need
+	--- filter docs with Hilary clinton
+	--- born in it
+	--- date closest to born
+
+
+
+Next steps:
+	try the out of the box features 
+		--- tfidf gives baseline
+		--- automatic features are great
+		--- industry more interested in 90% that is easiest to do
+		--- dont know if your features are good or not if you dont have a baseline
+		--- add the features on after ifidf features
+
+
+
+next thing is the reading:
